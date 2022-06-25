@@ -10,7 +10,7 @@ app.use("/static", express.static(path.resolve(__dirname, "www", "static")))
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'www','index.html'))
-    console.log('/ accsessed')
+    console.log('/ accessed')
 })
 
 app.listen(port, () => {

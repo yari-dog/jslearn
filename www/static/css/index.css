@@ -1,27 +1,32 @@
 
-.container {
-    max-height: 100%;
+.column {
     float: left;
     width: 50%;
-    background-color: red;
+    height: 100%;
+}
+
+.row {
+    width: 100%;
     height: 50%;
 }
 
-#learningcontainer{
-    background-color: green;
+.container {
+    box-sizing: border-box;
+    max-height: 100%;
+    width: 100%;
+    background-color: red;
     height: 100%;
-    width: 50%;
-}
-
-#inputcontainer{
-    background-color: blue;
+    padding: 1vmin;
 }
 
 .console {
+    box-sizing: border-box;
+    max-height: 100%;
     float: left;
     background-color: antiquewhite;
-    border: 0px solid black;
+    border: 1px solid black;
     height: 100%;
+    width: 100%;
 }
 
 .root {

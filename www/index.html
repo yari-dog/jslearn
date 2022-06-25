@@ -8,26 +8,31 @@
         <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
+        <script src="/node_modules/xterm/lib/xterm.js"></script>
+        <link rel="stylesheet" href="/node_modules/xterm/css/xterm.css" />
+        <script src="/node_modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
     </head>
     <body>
         <div class="root" id="root">
-            <div id="left" style="float: left;">
+            <div id="main" class="column">
                 <div class="container" id="learningcontainer">
                     <div class="console" id="learn">
                         <p>$ The learning console</p>
                     </div>
                 </div>
             </div>
-            <div id="right">
-                <div class="container" id="consolecontainer">
-                    <div class="console" id="console">
-                        <p>$ The input console</p>
+            <div id="sub" class="column">
+                <div id="top" class="row">
+                    <div class="container" id="consolecontainer">
+                        <div class="console" id="console"></div>
                     </div>
                 </div>
+                <div id="bottom" class="row">
                 <div class="container" id="outputcontainer">
                     <div class="console" id="output">
                         <p>$ The output console</p>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

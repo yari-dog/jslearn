@@ -1,29 +1,45 @@
-console.log("index.js loaded")
-let consoles = document.querySelectorAll('.console');
-// console.log(consoles)
 
-function sizeConsoles(consoles) {
-    let height = document.getElementById("root").style.height
-    let width = document.getElementById("root").style.width
-    console.log(`${height}, ${length}`)
-    for (let i = 0; i < consoles.length; i++) {
-        let id = consoles[i]["id"]
-        console.log(id)
-        let element = document.getElementById(id)
-        if (id === "learn") {
-            element.style.height = "100%"
-        }
-        element.style.width = "40%"
+
+console.log("index.js loaded");
+
+function ratioColumn(direction, adjust) {
+    const windowWidth = document.getElementById("root").offsetWidth;
+    const columns = document.getElementsByClassName("column");
+    const mainColumn = columns["main"];
+    const mainColumnWidth = mainColumn.offsetWidth/windowWidth*100;
+    if (direction === "main") {
+        columns["sub"].style.width = `${mainColumnWidth - adjust}%`;
+        mainColumn.style.width = `${mainColumnWidth + adjust}%`;       
+    }
+    else {
+        mainColumn.style.width = `${mainColumnWidth - adjust}%`;
+        columns["sub"].style.width = `${mainColumnWidth + adjust}%`;       
     }
 }
 
-function sizeRootDiv() {
-    let height = window.innerHeight
-    let width = window.innerWidth
-    let element = document.getElementById("root")
-    element.style.height = `${height}px`
-    element.style.width = `${width}px`
+function ratioRow(direction, adjust) {
+    const windowHeight = document.getElementById("root").offsetHeight;
+    const rows = document.getElementsByClassName("row");
+    const topRow = rows["top"];
+    const topRowHeight = topRow.offsetHeight/windowHeight*100;
+    if (direction === "top") {
+        rows["bottom"].style.height = `${topRowHeight - adjust}%`;
+        topRow.style.height = `${topRowHeight + adjust}%`;
+    }
+    else {
+        topRow.style.height = `${topRowHeight - adjust}%`;
+        rows["bottom"].style.height = `${topRowHeight + adjust}%`;
+    }
 }
 
-// sizeRootDiv()
-// sizeConsoles(consoles)
+function loadTerminal() {
+    const term = new Terminal();
+    const fitAddon = new FitAddon.FitAddon();
+    term.loadAddon(fitAddon);
+
+    term.open(document.getElementById('console'));
+    fitAddon.fit();
+    term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
+}
+
+loadTerminal()

@@ -4,19 +4,33 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JSlearn</title>
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
     </head>
     <body>
-        <div id="main">
-            <div type="console" id="learn">
-                <h1>$ The learning console</h1>
+        <div class="root" id="root">
+            <div id="left" style="float: left;">
+                <div class="container" id="learningcontainer">
+                    <div class="console" id="learn">
+                        <p>$ The learning console</p>
+                    </div>
+                </div>
             </div>
-            <div type="console" id="console">
-                <h1>$ The input console</h1>
-            </div>
-            <div type="console" id="output">
-                <h1>$ The output console</h1>
+            <div id="right">
+                <div class="container" id="consolecontainer">
+                    <div class="console" id="console">
+                        <p>$ The input console</p>
+                    </div>
+                </div>
+                <div class="container" id="outputcontainer">
+                    <div class="console" id="output">
+                        <p>$ The output console</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <script type="module" src="/static/js/index.js"></script>
+    <script type="module" src="/static/js/index.js"></script>
     </body>
 </html>

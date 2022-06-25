@@ -8,7 +8,7 @@ const path = require('path')
 
 app.use("/static", express.static(path.resolve(__dirname, "www", "static")))
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'www','index.html'))
     console.log('/ accsessed')
 })

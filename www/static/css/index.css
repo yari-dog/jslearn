@@ -1,0 +1,36 @@
+
+.container {
+    max-height: 100%;
+    float: left;
+    width: 50%;
+    background-color: red;
+    height: 50%;
+}
+
+#learningcontainer{
+    background-color: green;
+    height: 100%;
+    width: 50%;
+}
+
+#inputcontainer{
+    background-color: blue;
+}
+
+.console {
+    float: left;
+    background-color: antiquewhite;
+    border: 0px solid black;
+    height: 100%;
+}
+
+.root {
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

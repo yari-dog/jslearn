@@ -1,0 +1,12 @@
+--------back end:
+using a nodejs server
+using expressjs
+issue routing to static js files, set static directory in expressjs
+
+--------front end:
+using xtermjs for terminals
+window manager to manage windows
+issue with history function of terminal, logic problem with selecting current item in history list
+issue with method instantiation in Term class, was not creating method correctly
+
+

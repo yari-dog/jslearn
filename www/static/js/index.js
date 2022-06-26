@@ -34,4 +34,9 @@ biggerButtonRow.addEventListener('click', function(event) {
     ratioRow("top",+10)
 }, true)
 
-startTerm(modifier)
+
+
+const terminals = [];
+terminals.push(new Term());
+terminals[0].startTerm('console','yari','$');
+// startTerm(modifier)

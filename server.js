@@ -12,6 +12,10 @@ app.get("/node_modules/*", (req, res) => {
     console.log(req.params[0])
     res.sendFile(path.resolve(__dirname, "node_modules", req.params[0]))
 })
+app.get('/wm', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'www','wmtest.html'))
+    console.log('/ accessed')
+})
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'www','index.html'))

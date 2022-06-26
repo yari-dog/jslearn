@@ -66,19 +66,19 @@ class Term {
     startTerm(div, user, prompt) {
         this.parentDiv = document.getElementById(div);
         this.terminal.open(this.parentDiv);
-        new ResizeObserver( function () { this.fit }).observe(this.parentDiv)
+        new ResizeObserver( () => { this.fit() } ).observe(this.parentDiv)
         this.terminal.prompt = () => {
             this.terminal.write('\r\n' + user + prompt + ' ')
         };
         this.terminal.write(user + prompt + ' ');
         this.terminal.setOption('cursorBlink', true);
         this.theme = {
-            background: '#00000000',
-            foreground: '#000000'
+            background: '#0000',
+            foreground: '#000'
         }
         this.terminal.setOption('theme', this.theme);
         // this.fitAddon.fit();
-        this.fit();
+        // this.fit();
         this.terminal.onKey(key => {
             const char = key.domEvent.key;
         

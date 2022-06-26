@@ -1,45 +1,37 @@
 
 
 console.log("index.js loaded");
+const modifier = 83;
 
-function ratioColumn(direction, adjust) {
-    const windowWidth = document.getElementById("root").offsetWidth;
-    const columns = document.getElementsByClassName("column");
-    const mainColumn = columns["main"];
-    const mainColumnWidth = mainColumn.offsetWidth/windowWidth*100;
-    if (direction === "main") {
-        columns["sub"].style.width = `${mainColumnWidth - adjust}%`;
-        mainColumn.style.width = `${mainColumnWidth + adjust}%`;       
-    }
-    else {
-        mainColumn.style.width = `${mainColumnWidth - adjust}%`;
-        columns["sub"].style.width = `${mainColumnWidth + adjust}%`;       
-    }
-}
 
-function ratioRow(direction, adjust) {
-    const windowHeight = document.getElementById("root").offsetHeight;
-    const rows = document.getElementsByClassName("row");
-    const topRow = rows["top"];
-    const topRowHeight = topRow.offsetHeight/windowHeight*100;
-    if (direction === "top") {
-        rows["bottom"].style.height = `${topRowHeight - adjust}%`;
-        topRow.style.height = `${topRowHeight + adjust}%`;
-    }
-    else {
-        topRow.style.height = `${topRowHeight - adjust}%`;
-        rows["bottom"].style.height = `${topRowHeight + adjust}%`;
-    }
-}
 
-function loadTerminal() {
-    const term = new Terminal();
-    const fitAddon = new FitAddon.FitAddon();
-    term.loadAddon(fitAddon);
 
-    term.open(document.getElementById('console'));
-    fitAddon.fit();
-    term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
-}
+let smallerButtonCol = document.getElementById('smallerCol');
+smallerButtonCol.addEventListener('click', function(event) {
+    const element = document.getElementById('learn')
+    element.style.color = "red";
+    ratioColumn("main",-10)
+}, true)
 
-loadTerminal()
+let biggerButtonCol = document.getElementById('largerCol');
+biggerButtonCol.addEventListener('click', function(event) {
+    const element = document.getElementById('learn')
+    element.style.color = "red";
+    ratioColumn("main",+10)
+}, true)
+
+let smallerButtonRow = document.getElementById('smallerRow');
+smallerButtonRow.addEventListener('click', function(event) {
+    const element = document.getElementById('learn')
+    element.style.color = "red";
+    ratioRow("top",-10)
+}, true)
+
+let biggerButtonRow = document.getElementById('largerRow');
+biggerButtonRow.addEventListener('click', function(event) {
+    const element = document.getElementById('learn')
+    element.style.color = "red";
+    ratioRow("top",+10)
+}, true)
+
+startTerm(modifier)

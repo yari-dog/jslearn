@@ -1,0 +1,42 @@
+
+.column {
+    box-sizing: border-box;
+    float: left;
+}
+
+.row {
+    float: left;
+    box-sizing: border-box;
+    padding: 1vmin;
+}
+
+.view {
+    float: left;
+    box-sizing: border-box;
+    max-height: 100%;
+    width: 100%;
+    background-color: red;
+    height: 100%;
+}
+
+.console {
+    box-sizing: border-box;
+    max-height: 100%;
+    float: left;
+    background-color: antiquewhite;
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+}
+
+.root {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

@@ -1,11 +1,33 @@
+
+
 const windowManager = new WindowManager();
-const rootContainer = windowManager.newContainer(document.body,"root");
-const testContainer = windowManager.newContainer(rootContainer.object)
-windowManager.appendContainer(rootContainer.object,"h1", {
+// const rootContainer = windowManager.newContainer(document.body,"root");
+const rootContainer = windowManager.createWindow();
+// console.log(rootContainer)
+// // const testContainer = windowManager.newContainer(rootContainer.object, { id: 'test div' })
+const mainColumn = windowManager.createColumn();
+// console.log(mainColumn);
+// mainColumn.container.object.style.backgroundColor = 'blue';
+// windowManager.createColumn();
+// windowManager.columns[1].container.object.style.backgroundColor = 'green';
+// windowManager.createColumn();
+windowManager.createRow(mainColumn);
+mainColumn.rows[0].view.object.style.backgroundColor = 'red';
+windowManager.appendContainer(mainColumn.rows[0].view.object,"p", {
     textContent: "test",
     style: {
-        background: "blue",
-        padding: "20px"
+        // background: "blue",
+        //padding: "20px",
+        margin: '0px',
+        // padding: '0px',
+        background: 'blue'
     },
     id: "testelement"
 });
+windowManager.appendContainer(mainColumn.rows[0].view.object,"button", {
+    class: 'data-link',
+    style: {
+
+    },
+    innerHTML: "test button"
+})

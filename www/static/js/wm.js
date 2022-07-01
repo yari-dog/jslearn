@@ -1,52 +1,128 @@
 class Container {
-    constructor(parent, id, params) {
-        this.params = params;
+    constructor(parent, attributes) {
+        this.attributes = attributes;
         this.parent = parent;
-        this.id = id;
+        this.id = this.attributes.id;
     }
 
     
 
-    buildContainer(attributes){
-        this.div = document.createElement("div");
-        this.div.setAttribute("id",this.id);
-        for (const param in params) {
+    buildContainer(){
+        let div = document.createElement("div");
+        div.setAttribute("id",this.id);
+        for (const param in this.attributes) {
             if ( param === "textContent" ) {  
-                item.textContent = elementParams[param]
+                item.textContent = this.attributes[param]
             }
             else if ( param === "style" ) {
-                for (let property of Object.keys(elementParams[param])) {
-                    item.style[property.toString()] = elementParams[param][property.toString()];
+                for (let property of Object.keys(this.attributes[param])) {
+                    div.style[property.toString()] = this.attributes[param][property.toString()];
                 }
             }
             else if ( param === "id" ) {
-                console.log("id overwritten; was: ",this.id," now: ",params[param]);
+                console.log("id overwritten; was: ",this.id," now: ",this.attributes[param]);
             }
             else {
-                item.setAttribute(param, elementParams[param])
+                div.setAttribute(param, this.attributes[param])
             }
         }
-        this.parent.appendChild(this.div);
+        this.parent.appendChild(div);
         this.object = document.getElementById(this.id);
     }
 }
 
 class WindowManager {
     constructor() {
+        this.window = {};
         this.containers = [];
-        this.columns = [[],[]];
-        this.rows = [[],[],[]];
+        this.columns = [];
     }
 
-    container(container){
-        return;
-    }
-
-    newContainer(parent, id){
-        if ( typeof id === "undefined" ) {
-            id =  `div${this.containers.length}`;
+    createWindow(){
+        const rootAttributes = {
+            style: {
+                'background-image': "url('/static/img/background.webp')",
+                'background-position': "center center",
+                'background-size': "cover"
+            },
+            class: 'root',
+            id: 'root'
         }
-        this.containers.push(new Container(parent, id));
+        const container = this.newContainer(document.body, rootAttributes)
+        this.window = {
+            id: 'root',
+            class: 'root',
+            container: container
+        }
+        return this.window.container;
+    }
+
+    createColumn(){
+        if (this.columns.length === 0) {
+            var main = true; 
+            var classIs = 'main';
+        }
+        else {
+            var main = false;
+            var classIs = 'sub';
+        };
+        let column = {
+            rows: [],
+            isMain: main,
+            attributes: {
+                class: `${classIs} column`,
+                id: `column${this.columns.length}`,
+                style: {
+                    height: '100%',
+                    width: `${100/(this.columns.length + 1)}%`
+                }
+            }
+        }
+        for(let i = 0; i < this.columns.length; i++ ){
+            this.columns[i].container.object.style.width = `${100/(this.columns.length + 1)}%`;
+        }
+        column.container = this.newContainer(document.getElementById('root'), column.attributes)
+        this.columns.push(column);
+        return column;
+    }
+
+    createRow(column){
+        let row = {
+            attributes: {
+                class: 'row',
+                id: `${column.attributes.id}row${column.rows.length}`,
+                style: {
+                    height: `${100/(column.rows.length +1)}%`,
+                    width: `100%`,
+                }
+            },
+            viewAttributes: {
+                class: 'view',
+                id: `${column.attributes.id}row${column.rows.length}view`
+            }
+        }
+        for(let i = 0; i < column.rows.length; i++ ){
+            column.rows[i].container.object.style.width = `${100/(column.rows.length + 1)}%`;
+        }
+        row.container = this.newContainer(document.getElementById(column.attributes.id), row.attributes)
+        row.view = this.newContainer(document.getElementById(row.container.id), row.viewAttributes)
+        column.rows.push(row);
+        return row;
+    }
+
+    loadView(row,view){
+        
+    }
+
+    newContainer(parent, attributes){
+        if ( typeof attributes.id === "undefined" ) {
+            attributes.id =  `div${this.containers.length}`;
+        }
+        if ( typeof parent === "undefined" ){
+            console.log('parent undefined:',parent);
+            return
+        }
+        this.containers.push(new Container(parent, attributes));
         this.containers[this.containers.length -1].buildContainer();
         return this.containers[this.containers.length -1];
     }
@@ -55,18 +131,19 @@ class WindowManager {
         let item = document.createElement(element);
         for (const param in elementParams) {
             console.log(param, elementParams[param])
-            if ( param === "textContent" ) {
+            // if ( param === "textContent" ) {
                 
-                item.textContent = elementParams[param]
-            }
-            else if ( param === "style" ) {
-                for (let property of Object.keys(elementParams[param])) {
-                    item.style[property.toString()] = elementParams[param][property.toString()];
-                }
-            }
-            else {
-                item.setAttribute(param, elementParams[param])
-            }
+            //     item.textContent = elementParams[param]
+            // }
+            // else if ( param === "style" ) {
+            //     for (let property of Object.keys(elementParams[param])) {
+            //         item.style[property.toString()] = elementParams[param][property.toString()];
+            //     }
+            // }
+            // else {
+            //     item.setAttribute(param, elementParams[param])
+            // }
+            item.setAttribute(param, elementParams[param])
         }
         container.appendChild(item)
     }

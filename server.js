@@ -1,9 +1,13 @@
 
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const config = require('config');
+const app = express();
+const port = process.env.PORT || 3000;
 
-const path = require('path')
+const path = require('path');
 
 app.use("/node_modules", express.static(path.resolve(__dirname, "node_modules")))
 app.use("/static", express.static(path.resolve(__dirname, "www", "static")))

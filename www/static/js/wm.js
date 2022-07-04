@@ -22,6 +22,9 @@ class Container {
             else if ( param === "id" ) {
                 console.log("id overwritten; was: ",this.id," now: ",this.attributes[param]);
             }
+            else if ( param === "innerHTML" ){
+                div.innerHTML = this.attributes[param]
+            }
             else {
                 div.setAttribute(param, this.attributes[param])
             }
@@ -36,6 +39,45 @@ class WindowManager {
         this.window = {};
         this.containers = [];
         this.columns = [];
+        this.topBar = {
+            style: {
+                backgroundColor: "#444444",
+                height: "20px"
+            },
+            innerHTML: "<button style='border-radius: 50%; margin: 2.5px;height: 15px; width: 15px; background-color: red; float: right; border: line white;' wm-command='delete-view'></button>"
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.addEventListener("click", e => {
+                if (e.target.matches("[wm-command]")) {
+                    console.log(e.target.getAttribute("wm-command"));
+                    if (e.target.getAttribute("wm-command") === "new-column" ) {
+                        this.createColumn()
+                    }
+                    if (e.target.getAttribute("wm-command") === "delete-view" ) {
+                        this.deleteView(e.target.parentNode.parentNode)
+                    }
+                }    
+            })
+            document.body.addEventListener("click", e => {
+                if (e.target.matches("[data-link]")) {
+                    let potentialView = e.target.parentNode;
+                    let view = {};
+                    for (let i = 0; true; i++) {
+                        if (potentialView.classList.contains("view")) {
+                            view = potentialView;
+                            break;
+                        }
+                        else if (potentialView.id === "root") {
+                            console.log('reached root, cant find data link parent view. breaking')
+                            break;
+                        }
+                    }
+                    if (view) {
+                        this.loadView(view, e.target.href);
+                    }
+                }
+            })
+        })
     }
 
     createWindow(){
@@ -55,6 +97,54 @@ class WindowManager {
             container: container
         }
         return this.window.container;
+    }
+
+    deleteColumn(column,index){
+        document.getElementById(column.container.id).remove()
+        this.columns.splice(index,1)
+        for ( let i = 0; i < this.columns.length; i++ ){
+            console.log(this.columns[i].container.object.style)
+            document.getElementById(this.columns[i].container.id).style.width = `${100/(this.columns.length)}%`;
+        }
+    }
+
+    deleteRow(column,row,index){
+        const parentNode = row.parentNode;
+        row.remove();
+        column.rows.splice(index,1);
+        for ( let i = 0; i < column.rows.length; i++ ) {
+            document.getElementById(column.rows[i].container.object.id).style.height = `${100/(this.columns[i].rows.length)}%`;
+        }
+    }
+
+    deleteView(view){
+        console.log(view);
+        const row=view.parentNode;
+        let column = {};
+        let colDel = false;
+        for ( let i = 0; i < this.columns.length; i++ ){
+            if (this.columns[i].container.id == row.parentNode.id) {
+                column = this.columns[i]
+                if (this.columns[i].rows.length === 1) {
+                    if (this.columns.length > 1) {
+                        colDel = true;
+                        this.deleteColumn(this.columns[i],i)
+                    }
+                }
+                break;
+            }
+        }
+        if (!colDel) {
+            if (column.rows.length > 1){
+                for ( let i = 0; i < column.rows.length; i++) {
+                    if (column.rows[i].container.object.id == row.id) {
+                        this.deleteRow(column,row,i)
+                        break;
+                    }
+                }
+                
+            }
+        }
     }
 
     createColumn(){
@@ -82,6 +172,7 @@ class WindowManager {
             this.columns[i].container.object.style.width = `${100/(this.columns.length + 1)}%`;
         }
         column.container = this.newContainer(document.getElementById('root'), column.attributes)
+        delete column.attributes;
         this.columns.push(column);
         return column;
     }
@@ -90,7 +181,7 @@ class WindowManager {
         let row = {
             attributes: {
                 class: 'row',
-                id: `${column.attributes.id}row${column.rows.length}`,
+                id: `${column.container.id}row${column.rows.length}`,
                 style: {
                     height: `${100/(column.rows.length +1)}%`,
                     width: `100%`,
@@ -98,20 +189,71 @@ class WindowManager {
             },
             viewAttributes: {
                 class: 'view',
-                id: `${column.attributes.id}row${column.rows.length}view`
+                id: `${column.container.id}row${column.rows.length}view`
             }
         }
         for(let i = 0; i < column.rows.length; i++ ){
-            column.rows[i].container.object.style.width = `${100/(column.rows.length + 1)}%`;
+            column.rows[i].container.object.style.height = `${100/(column.rows.length + 1)}%`;
         }
-        row.container = this.newContainer(document.getElementById(column.attributes.id), row.attributes)
+        row.container = this.newContainer(document.getElementById(column.container.id), row.attributes)
         row.view = this.newContainer(document.getElementById(row.container.id), row.viewAttributes)
+        row.view.object.addEventListener("mouseover", e => { this.selectView(e)});
+        row.view.object.addEventListener("mouseout", e => { this.deselectView(e) });
+        row.topBar = this.newContainer(document.getElementById(row.view.id),this.topBar);
         column.rows.push(row);
         return row;
     }
 
-    loadView(row,view){
-        
+    selectView(e) {
+        let potentialView = e.target;
+        let view = {};
+        if (potentialView.classList.contains("view")){ 
+            view = potentialView;
+        } 
+        else{
+            for (let i = 0; i < 10; i++) {
+                if (potentialView.classList.contains("view")) {
+                    view = potentialView;
+                    break;
+                }
+                else if (potentialView.id === "root") {
+                    console.log('reached root, cant find data link parent view. breaking')
+                    break;
+                }
+                potentialView = potentialView.parentNode
+            }
+        }
+        if (view) {
+            view.style.border = "1px solid pink"
+        }
+    };
+
+    deselectView(e) {
+        let potentialView = e.target;
+        let view = {};
+        if (potentialView.classList.contains("view")){ 
+            view = potentialView;
+        } 
+        else{
+            for (let i = 0; i < 10; i++) {
+                if (potentialView.classList.contains("view")) {
+                    view = potentialView;
+                    break;
+                }
+                else if (potentialView.id === "root") {
+                    console.log('reached root, cant find data link parent view. breaking')
+                    break;
+                }
+                potentialView = potentialView.parentNode
+            }
+        }
+        if (view) {
+            view.style.border = "0px solid pink"
+        }
+    };
+
+    loadView(view,viewLink){
+        console.log(view, viewLink)
     }
 
     newContainer(parent, attributes){
@@ -131,19 +273,21 @@ class WindowManager {
         let item = document.createElement(element);
         for (const param in elementParams) {
             console.log(param, elementParams[param])
-            // if ( param === "textContent" ) {
+            if ( param === "textContent" ) {
                 
-            //     item.textContent = elementParams[param]
-            // }
-            // else if ( param === "style" ) {
-            //     for (let property of Object.keys(elementParams[param])) {
-            //         item.style[property.toString()] = elementParams[param][property.toString()];
-            //     }
-            // }
-            // else {
-            //     item.setAttribute(param, elementParams[param])
-            // }
-            item.setAttribute(param, elementParams[param])
+                item.textContent = elementParams[param]
+            }
+            else if ( param === "style" ) {
+                for (let property of Object.keys(elementParams[param])) {
+                    item.style[property.toString()] = elementParams[param][property.toString()];
+                }
+            }
+            else if ( param === "innerHTML" ){
+                item.innerHTML = elementParams[param]
+            }
+            else {
+                item.setAttribute(param, elementParams[param])
+            }
         }
         container.appendChild(item)
     }
@@ -186,3 +330,5 @@ function ratioRow(direction, adjust) {
         bottomRow.style.height = `${bottomRowHeight + adjust}%`;
     }
 }
+
+

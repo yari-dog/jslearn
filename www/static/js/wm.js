@@ -271,6 +271,7 @@ class WindowManager {
             history.pushState(null,null,historyPath)
         }
         this.setTitle(view,viewLink)
+        this.executeScriptElements(view)
     }
 
     async fetchAsync(url){
@@ -282,6 +283,22 @@ class WindowManager {
         let data = await response.text();
         return(data)
     }
+
+    executeScriptElements(containerElement) {
+        const scriptElements = containerElement.querySelectorAll("script");
+      
+        Array.from(scriptElements).forEach((scriptElement) => {
+          const clonedElement = document.createElement("script");
+      
+          Array.from(scriptElement.attributes).forEach((attribute) => {
+            clonedElement.setAttribute(attribute.name, attribute.value);
+          });
+          
+          clonedElement.text = scriptElement.text;
+      
+          scriptElement.parentNode.replaceChild(clonedElement, scriptElement);
+        });
+      }
 
     newContainer(parent, attributes){
         if ( typeof attributes.id === "undefined" ) {

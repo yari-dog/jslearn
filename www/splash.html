@@ -1,1 +1,110 @@
-splash
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Finlandica:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="/static/css/nav.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/splash.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body style="margin-top: 60px;">
+    <div style="position: fixed; width:100%; top:0;left:0;">
+        <div class="header">
+            <button type="button" class="nav-btn">
+                <span class="material-icons">
+                    menu
+                </span>
+            </button>
+            <h1>JSLearn</h1>
+        </div>
+    </div>
+        <div class="nav-overlay" style="position: fixed; top: 60px; left: 0;"></div>
+        <nav class="nav" style="position: fixed; top: 60px; left: 0;">
+            <a href="/view/test" class="nav-link" data-link>Nav Item 1</a>
+            <a href="/view/test" class="nav-link" data-link>Nav Item 2</a>
+            <a href="/view/test" class="nav-link" data-link>Nav Item 3</a>
+            <a href="/view/test" class="nav-link" data-link>Nav Item 4</a>
+            <a href="/view/test" class="nav-link" data-link>Nav Item 5</a>
+        </nav>
+        <div class="item-container">
+            <div class="item-textbox">
+                <h1>Welcome To JSLearn!</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 200px);"></div></div>
+            <div class="tem-image">
+                <img src="/static/img/placeholder.jpg" style="align-self: center;">
+            </div>
+        </div>
+        <div class="item-container">
+            <div class="item-image">
+                <img src="/static/img/placeholder.jpg" style="align-self: center; ">
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 200px);"></div></div>
+            <div class="item-textbox">
+                <h1>A unique solution to software development education</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>           
+        </div>
+        <div class="scrolling-wrapper">
+            <div class="card-item">
+                <div class="card-container">
+                    <div class="card-head">
+                        <h1>Card head</h1>
+                    </div>
+                    <div class="card-image">
+                        <img src="/static/img/placeholder.jpg">
+                    </div>
+                    <div class="card-expand">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-container">
+                    <div class="card-head">
+                        <h1>Card head</h1>
+                    </div>
+                    <div class="card-image">
+                        <img src="/static/img/placeholder.jpg">
+                    </div>
+                    <div class="card-expand">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-item">
+                <div class="card-container">
+                    <div class="card-head">
+                        <h1>Card head</h1>
+                    </div>
+                    <div class="card-image">
+                        <img src="/static/img/placeholder.jpg">
+                    </div>
+                    <div class="card-expand">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // setup navigation bar
+            {
+                const navMenu = document.querySelector('.nav');
+                const navOverlay = document.querySelector('.nav-overlay');
+                const navButton = document.querySelector('.nav-btn');
+    
+                navButton.addEventListener("click", () => {
+                    navMenu.classList.add("nav-open");
+                    navOverlay.classList.add("nav-overlay-open");
+                });
+    
+                navOverlay.addEventListener("click", () => {
+                    navMenu.classList.remove("nav-open");
+                    navOverlay.classList.remove("nav-overlay-open");
+                });
+            }
+        </script>
+    </body>
+</html>

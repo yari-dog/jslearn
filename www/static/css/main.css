@@ -1,0 +1,133 @@
+:root {
+    --header-height: 60px;
+    --white: #EFF1F3;
+    --black: #272727;
+    --primary: #009FB7;
+    --seconday: #FED766;
+    --grey: #696773
+
+}
+
+* {
+    font-family: 'Finlandica', sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.divider-vertical {
+    background-color: var(--grey);
+    width: 1px;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--white);
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.header h1 {
+    font-family: 'Finlandica', sans-serif;
+    float: right;
+    margin: auto;
+    padding: auto;
+    align-self: center;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-between;
+    align-items: stretch;
+    justify-items: center;
+    margin: 30px;
+    padding: 10px;
+}
+
+.item-textbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.item-image img {
+    max-width: 30vmax;
+}
+
+.card-container {
+    display: flex;
+    width: 500px;
+    flex: 0 0 auto;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 50px;
+    margin: 50px;
+    gap: 30px;
+}
+
+.card-item {
+    background: var(--white);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 2px;
+}
+
+.card-container {
+    background: var(--white);
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 1.6rem;
+    margin: 20px;
+}
+
+.card-head {
+    background: inherit;
+}
+
+.card-head h1 {
+    background: inherit;
+    color: var(--black);
+    font-size: 1.6rem;
+    padding: 0.4rem 0;
+}
+
+.card-image {
+    background: inherit;
+}
+
+.card-image img{
+    background: inherit;
+    max-height: 300px;
+    max-width: 100%;
+}
+
+.card-expand {
+    background: inherit;
+    color: var(--black);
+}
+
+.card-expand p {
+    background: inherit;
+    color: var(--black);
+}

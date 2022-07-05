@@ -1,5 +1,6 @@
 :root {
     --top-bar-height: 20px;
+    --header-height: 60px;
 }
 
 .top-bar {
@@ -83,7 +84,9 @@
     left: 0;
 }
 
-.home {
+.content {
+    box-sizing: border-box;
+    position: relative;
     float: left;
     min-height: 100%;
     width: 100%;
@@ -91,3 +94,5 @@
     padding: 0;
     margin: 0;
 }
+
+

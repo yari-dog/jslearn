@@ -11,6 +11,7 @@ const path = require('path');
 
 app.use("/node_modules", express.static(path.resolve(__dirname, "node_modules")))
 app.use("/static", express.static(path.resolve(__dirname, "www", "static")))
+app.use("/views", express.static(path.resolve(__dirname,"www","static","html","views")))
 
 app.get("/node_modules/*", (req, res) => {
     console.log(req.params[0])
@@ -21,8 +22,17 @@ app.get('/wm', (req, res) => {
     console.log('/ accessed')
 })
 
-app.get('/', (req, res) => {
+app.get('/views/:view', (req,res) => {
+    res.sendFile(path.resolve(__dirname, 'www','static','html','views',req.params.view.concat('.html')));
+})
+
+app.get('/:id', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'www','index.html'))
+        
+})
+
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'www','splash.html'))
     console.log('/ accessed')
 })
 

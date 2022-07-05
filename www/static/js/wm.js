@@ -40,13 +40,13 @@ class WindowManager {
         this.containers = [];
         this.columns = [];
         this.topBar = {
-            style: {
-                backgroundColor: "#444444",
-                height: "20px"
-            },
-            innerHTML: "<button style='border-radius: 50%; margin: 2.5px;height: 15px; width: 15px; background-color: red; float: right; border: line white;' wm-command='delete-view'></button>"
+            innerHTML: "<p class='title'>ttt</p><button class='close-button' wm-command='delete-view'></button>",
+            class: "top-bar"
         }
         document.addEventListener("DOMContentLoaded", () => {
+            if (location.pathname != "/") {
+                this.mainColumnPath = "/views".concat(location.pathname)
+            } 
             document.body.addEventListener("click", e => {
                 if (e.target.matches("[wm-command]")) {
                     console.log(e.target.getAttribute("wm-command"));
@@ -60,9 +60,11 @@ class WindowManager {
             })
             document.body.addEventListener("click", e => {
                 if (e.target.matches("[data-link]")) {
+                    e.preventDefault();
                     let potentialView = e.target.parentNode;
                     let view = {};
-                    for (let i = 0; true; i++) {
+                    for (let i = 0; i < 25; i++) {
+                        console.log(i,potentialView)
                         if (potentialView.classList.contains("view")) {
                             view = potentialView;
                             break;
@@ -71,9 +73,10 @@ class WindowManager {
                             console.log('reached root, cant find data link parent view. breaking')
                             break;
                         }
+                        potentialView = potentialView.parentNode
                     }
                     if (view) {
-                        this.loadView(view, e.target.href);
+                        this.loadView(view, new URL(e.target.href).pathname);
                     }
                 }
             })
@@ -187,6 +190,10 @@ class WindowManager {
                     width: `100%`,
                 }
             },
+            boxAttributes: {
+                class: 'box',
+                id: `${column.container.id}row${column.rows.length}box`,
+            },
             viewAttributes: {
                 class: 'view',
                 id: `${column.container.id}row${column.rows.length}view`
@@ -196,64 +203,84 @@ class WindowManager {
             column.rows[i].container.object.style.height = `${100/(column.rows.length + 1)}%`;
         }
         row.container = this.newContainer(document.getElementById(column.container.id), row.attributes)
-        row.view = this.newContainer(document.getElementById(row.container.id), row.viewAttributes)
-        row.view.object.addEventListener("mouseover", e => { this.selectView(e)});
-        row.view.object.addEventListener("mouseout", e => { this.deselectView(e) });
-        row.topBar = this.newContainer(document.getElementById(row.view.id),this.topBar);
+        row.box = this.newContainer(document.getElementById(row.container.id), row.boxAttributes)
+        row.box.object.addEventListener("mouseover", e => { this.selectView(e)});
+        row.box.object.addEventListener("mouseout", e => { this.deselectView(e) });
+        row.topBar = this.newContainer(document.getElementById(row.box.id),this.topBar);
+        row.view = this.newContainer(document.getElementById(row.box.id),row.viewAttributes)
         column.rows.push(row);
         return row;
     }
 
     selectView(e) {
-        let potentialView = e.target;
-        let view = {};
-        if (potentialView.classList.contains("view")){ 
-            view = potentialView;
+        let potentialBox = e.target;
+        let box = {};
+        if (potentialBox.classList.contains("box")){ 
+            box = potentialBox;
         } 
         else{
             for (let i = 0; i < 10; i++) {
-                if (potentialView.classList.contains("view")) {
-                    view = potentialView;
+                if (potentialBox.classList.contains("box")) {
+                    box = potentialBox;
                     break;
                 }
-                else if (potentialView.id === "root") {
+                else if (potentialBox.id === "root") {
                     console.log('reached root, cant find data link parent view. breaking')
                     break;
                 }
-                potentialView = potentialView.parentNode
+                potentialBox = potentialBox.parentNode
             }
         }
-        if (view) {
-            view.style.border = "1px solid pink"
+        if (box) {
+            box.style.outline = "1px solid pink"
         }
     };
 
     deselectView(e) {
-        let potentialView = e.target;
-        let view = {};
-        if (potentialView.classList.contains("view")){ 
-            view = potentialView;
+        let potentialBox = e.target;
+        let box = {};
+        if (potentialBox.classList.contains("box")){ 
+            box = potentialBox;
         } 
         else{
             for (let i = 0; i < 10; i++) {
-                if (potentialView.classList.contains("view")) {
-                    view = potentialView;
+                if (potentialBox.classList.contains("box")) {
+                    box = potentialBox;
                     break;
                 }
-                else if (potentialView.id === "root") {
+                else if (potentialBox.id === "root") {
                     console.log('reached root, cant find data link parent view. breaking')
                     break;
                 }
-                potentialView = potentialView.parentNode
+                potentialBox = potentialBox.parentNode
             }
         }
-        if (view) {
-            view.style.border = "0px solid pink"
+        if (box) {
+            box.style.outline = "0px solid pink"
         }
     };
 
-    loadView(view,viewLink){
-        console.log(view, viewLink)
+    async loadView(view,viewLink){
+        console.log(viewLink)
+        let data = await this.fetchAsync(viewLink);
+        view.innerHTML = data;
+        const column = view.parentNode.parentNode.parentNode
+        if (column.classList.contains("main")){
+            const historyPath = viewLink.split("/").slice(2)
+            console.log('pushing state', historyPath)
+            history.pushState(null,null,historyPath)
+        }
+        this.setTitle(view,viewLink)
+    }
+
+    async fetchAsync(url){
+        let response = await fetch(url);
+        if (response.status == 404){
+            response = await this.fetchAsync('/views/404');
+            return response
+        }
+        let data = await response.text();
+        return(data)
     }
 
     newContainer(parent, attributes){
@@ -290,6 +317,11 @@ class WindowManager {
             }
         }
         container.appendChild(item)
+    }
+
+    setTitle(box,title){
+        const titleBar = document.getElementById(box.parentNode.id).querySelector(".title");
+        titleBar.innerHTML = title
     }
 
 }

@@ -96,8 +96,13 @@
                 const navButton = document.querySelector('.nav-btn');
     
                 navButton.addEventListener("click", () => {
-                    navMenu.classList.add("nav-open");
-                    navOverlay.classList.add("nav-overlay-open");
+                    if (navMenu.classList.contains("nav-open")){
+                        navMenu.classList.remove("nav-open");
+                        navOverlay.classList.remove("nav-overlay-open");
+                    } else {
+                        navMenu.classList.add("nav-open");
+                        navOverlay.classList.add("nav-overlay-open");
+                    }
                 });
     
                 navOverlay.addEventListener("click", () => {

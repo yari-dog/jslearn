@@ -7,91 +7,97 @@
         <link rel="stylesheet" href="/static/css/splash.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
-    <body style="margin-top: 60px;">
-    <div style="position: fixed; width:100%; top:0;left:0;">
-        <div class="header">
-            <button type="button" class="nav-btn">
-                <span class="material-icons">
-                    menu
-                </span>
-            </button>
-            <h1>JSLearn</h1>
+    <body style="margin-top: var(--header-height);">
+        <div style="position: fixed; width:100%; top:0;left:0;">
+            <div class="header">
+                <div style="justify-content: start;"><button type="button" class="nav-btn">
+                    <span class="material-icons">
+                        menu
+                    </span>
+                </button></div>
+                <div><h1 style="border-bottom: 2px solid var(--primary); border-radius: 2px;">JSLearn</h1></div>
+                <div style="justify-content: end;"><div style="height: 100%; justify-content: end; align-content: center;"><a href="/home">go to client area</a></div></div>
+            </div>
         </div>
-    </div>
-        <div class="nav-overlay" style="position: fixed; top: 60px; left: 0;"></div>
-        <nav class="nav" style="position: fixed; top: 60px; left: 0;">
-            <a href="/view/test" class="nav-link" data-link>Nav Item 1</a>
-            <a href="/view/test" class="nav-link" data-link>Nav Item 2</a>
-            <a href="/view/test" class="nav-link" data-link>Nav Item 3</a>
-            <a href="/view/test" class="nav-link" data-link>Nav Item 4</a>
-            <a href="/view/test" class="nav-link" data-link>Nav Item 5</a>
-        </nav>
+        <div class="nav-overlay" style="position: fixed; top: var(--header-height); left: 0;"></div>
+        <div class="nav-panel" style="position: fixed; top: var(--header-height); left: 0;">
+            <nav class="nav">
+                <div class="nav-link"><a href="/view/test" data-link>Nav Item 1</a></div>
+                <div class="nav-link"><a href="/view/test" data-link>Nav Item 2</a></div>
+                <div class="nav-link"><a href="/view/test" data-link>Nav Item 3</a></div>
+                <div class="nav-link"><a href="/view/test" data-link>Nav Item 4</a></div>
+                <div class="nav-link"><a href="/view/test" data-link>Nav Item 5</a></div>
+            </nav>
+        </div>
+        <br>
         <div class="item-container">
             <div class="item-textbox">
                 <h1>Welcome To JSLearn!</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>JSLearn is a highly reactive and intuitive solution to software development education. With course design inspiration taken from well known educators in the software development field such as w3schools, student progression is fast and highly flexible, allowing for one to learn what they need; when they need.</p>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 200px);"></div></div>
-            <div class="tem-image">
-                <img src="/static/img/placeholder.jpg" style="align-self: center;">
+            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 200px); background-color: var(--primary);"></div></div>
+            <div class="item-image">
+                <img src="/static/img/splash/JavaScript-logo.png" style="align-self: center;">
             </div>
         </div>
+        <div style="width: 100%; display:flex; justify-content: center;"><div class="divider-horizontal" style="background-color: var(--primary); border: 5px solid var(--white); border-radius: 5px; box-shadow:  0 0 5px #000000;"></div></div>
         <div class="item-container">
             <div class="item-image">
-                <img src="/static/img/placeholder.jpg" style="align-self: center; ">
+                <img src="/static/img/splash/education.jpg" style="align-self: center; ">
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 200px);"></div></div>
+            <div style="display: flex; justify-content: center; align-items: center; width: 120px;"><div class="divider-vertical" style="height: calc(100% - 100px); background-color: var(--primary);"></div></div>
             <div class="item-textbox">
                 <h1>A unique solution to software development education</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>With our optional teacher & student user model, teachers can manage a group of student users with ease; tracking course progress, fine tuning course lessons to better match the curriculum, or even creating a course directly with our powerfull course creator.</p>
             </div>           
         </div>
-        <div class="scrolling-wrapper">
-            <div class="card-item">
-                <div class="card-container">
-                    <div class="card-head">
-                        <h1>Card head</h1>
-                    </div>
-                    <div class="card-image">
-                        <img src="/static/img/placeholder.jpg">
-                    </div>
-                    <div class="card-expand">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-item">
-                <div class="card-container">
-                    <div class="card-head">
-                        <h1>Card head</h1>
-                    </div>
-                    <div class="card-image">
-                        <img src="/static/img/placeholder.jpg">
-                    </div>
-                    <div class="card-expand">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="scroll-wrapper">
+            <div class="card-wrapper">
+                <div class="card-item">
+                    <div class="card-container">
+                        <div class="card-head">
+                            <h1>Learn with live demonstration</h1>
+                        </div>
+                        <div class="card-image">
+                            <img src="/static/img/placeholder.jpg">
+                        </div>
+                        <div class="card-expand">
+                            <p>With the tools implemented in our browser based IDE, You can watch the code in your lessons work in real time, without needing to do anything!</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-item">
-                <div class="card-container">
-                    <div class="card-head">
-                        <h1>Card head</h1>
+                <div class="card-item">
+                    <div class="card-container">
+                        <div class="card-head">
+                            <h1>Design inspired by leading educational platforms</h1>
+                        </div>
+                        <div class="card-image">
+                            <img src="/static/img/placeholder.jpg">
+                        </div>
+                        <div class="card-expand">
+                            <p>Our design expands upon the design principles employed by educators such as <a href="https://www.w3schools.com/" target="_blank">w3schools</a>. Allowing you to follow along with the code you are learning live.</p>
+                        </div>
                     </div>
-                    <div class="card-image">
-                        <img src="/static/img/placeholder.jpg">
-                    </div>
-                    <div class="card-expand">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="card-item">
+                    <div class="card-container">
+                        <div class="card-head">
+                            <h1>Create custom courses for your own needs.</h1>
+                        </div>
+                        <div class="card-image">
+                            <img src="/static/img/placeholder.jpg">
+                        </div>
+                        <div class="card-expand">
+                            <p>Educational accounts can design courses specifically to the needs of their teaching. With our powerful course creation library, anything can be taught!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <script>
             // setup navigation bar
             {
-                const navMenu = document.querySelector('.nav');
+                const navMenu = document.querySelector('.nav-panel');
                 const navOverlay = document.querySelector('.nav-overlay');
                 const navButton = document.querySelector('.nav-btn');
     

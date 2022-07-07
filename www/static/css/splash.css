@@ -1,2 +1,182 @@
+/* setting color variables to be global */
+
+:root {
+    --header-height: 10vh;
+    --white: #EFF1F3;
+    --black: #272727;
+    --secondary: #009FB7;
+    --primary: #FED766;
+    --grey: #696773;
+    --light-grey: #d5d5d5;
+}
+
+* {
+    font-family: 'Finlandica', sans-serif;
+    color: var(--black);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
 
 
+h1 {
+    border-bottom: 2px solid var(--primary);
+    border-radius: 2px;
+    margin: auto;
+    padding: auto;
+}
+
+
+main, header, section, aside, footer {
+    margin: 0;
+    padding: 20px;
+    color: var(--black);
+}
+
+main {
+    box-sizing: border-box;
+    width: 100%;
+    background: #00000000;
+    padding: 0px;
+    padding-top: calc(var(--header-height));
+}
+
+/* #region header */
+
+.header {
+    position: absolute;
+    box-sizing: border-box;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    height: var(--header-height);
+    display: flex;
+    align-content: stretch;
+    justify-content: space-between;
+    background-color: var(--white);
+}
+
+.header .wrapper {
+    display: flex;
+    margin: 0;
+    height: 100%;
+    align-content: center;
+}
+
+.header a {
+    text-decoration: none;
+    border-bottom: 2px solid var(--primary);
+    font-family: 'Finlandica', sans-serif;
+    align-self: center;
+    padding-right: 40px;
+}
+
+/* #endregion */
+
+/* #region section info */
+.hero {
+
+}
+
+.wrapper {
+    margin: auto;
+    max-width: 1920px;
+}
+
+.content {
+    background-color: var(--black);
+    flex: 1;
+}
+
+.sidebar {
+    background: var(--black);
+    flex: 0 1 300px;
+}
+
+.footer {
+    background: var(--primary);
+}
+
+/* #endregion */
+
+.no-show {
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    
+}
+
+/* #region media queries */
+ /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    :root{
+        --header-height: 60px;
+    }
+    .header a {
+        padding-right: 10px;
+        max-width: calc(var(--header-height) + 20px);
+        font-size: medium;
+    }
+}
+
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    :root{
+        --header-height: 60px;
+    }
+    .header a {
+        padding-right: 10px;
+    }
+
+}
+ 
+ /* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    :root{
+        --header-height: 60px;
+    }
+
+    .flex-container {
+        display: flex;
+    }
+
+    .header a {
+        font-size: 150%;
+        padding-right: 20px;
+        max-width: auto;
+    }
+}
+ 
+ /* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    :root{
+        --header-height: 60px;
+    }
+
+    .header a {
+        padding-right: 40px;
+    }
+
+}
+ 
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    :root{
+        --header-height: 60px;
+    }
+
+    .header a {
+        padding-right: 40px;
+    }
+} 
+
+/* #endregion */

@@ -27,7 +27,7 @@ app.get('/views/:view', (req,res) => {
 })
 
 app.get('/:id', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'www','index.html'))
+    res.sendFile(path.resolve(__dirname, 'www','splash2.html'))
         
 })
 

@@ -13,9 +13,10 @@ const mainColumn = windowManager.createColumn();
 // windowManager.columns[1].container.object.style.backgroundColor = 'green';
 // windowManager.createColumn();
 windowManager.createRow(mainColumn);
+windowManager.createRow(mainColumn);
 // windowManager.createRow(subColumn);
 // windowManager.createRow(subColumn);
-mainColumn.rows[0].view.object.style.backgroundColor = '#FF000055';
+// mainColumn.rows[0].view.object.style.backgroundColor = '#FF000055';
 windowManager.appendContainer(mainColumn.rows[0].view.object,"p", {
     innerHTML: "test",
     style: {
@@ -43,11 +44,3 @@ windowManager.appendContainer(mainColumn.rows[0].view.object,"a", {
     },
     innerHTML: "new column"
 })
-window.addEventListener('load', (event) => {
-    if (windowManager.mainColumnPath) {
-        windowManager.loadView(mainColumn.rows[0].view.object, windowManager.mainColumnPath)
-    }
-    else {
-        windowManager.loadView(mainColumn.rows[0].view.object,"/views/home")
-    }
-});

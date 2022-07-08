@@ -39,7 +39,6 @@ body {
     display: flex;
     align-content: center;
     justify-content: center;
-    z-index: 999;
 }
 
 .header div {

@@ -1,5 +1,6 @@
 .nav-btn {
     width: var(--header-height);
+    box-sizing: border-box;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -8,6 +9,7 @@
     cursor: pointer;
     outline: none;
     border: none;
+    transition: box-shadow 0.2s ease;
 }
 
 .nav-btn > span {
@@ -19,7 +21,7 @@
 .nav-panel {
     --nav-width: 40vw;
 
-    position: absolute;
+    position: sticky;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -29,10 +31,10 @@
     left: 0px;
     width: var(--nav-width);
     height: 100%;
-    background: var(--black);
+    background: none;
     overflow-y: scroll;
     transform: translateX(calc(-1 * var(--nav-width)));
-    transition: transform 0.25s;
+    transition: transform 0.25s ease;
 }
 
 .nav {
@@ -41,6 +43,7 @@
     flex-direction: column;
     background: var(--white);
     width: 100%;
+    border-radius: 0px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     gap: 10px;
@@ -54,9 +57,8 @@
     font-size: 24px;
     border-radius: 10px;
     padding: 10px;
-    background-color: var(--white);
     box-shadow: 0 0 0 var(--black);
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s ease;
 }
 
 .nav-link a {
@@ -71,10 +73,10 @@
     border-radius: 2px;
 }
 
-
+/*
 .nav-link:hover {
     box-shadow: 0 0 6px var(--light-grey), inset 0 0 2px var(--light-grey);
-}
+} */
 
 .nav-open {
     transform: translateX(0);
@@ -99,7 +101,7 @@
  /* Extra small devices (phones, 600px and down) */
  @media only screen and (max-width: 600px) {
     .nav-panel{
-        --nav-width: 100vw;
+        --nav-width: 100%;
     }
 }
 
@@ -120,9 +122,6 @@
  
  /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .nav-panel{
-        --nav-width: 40vw;
-    }
 }
  
  /* Extra large devices (large laptops and desktops, 1200px and up) */

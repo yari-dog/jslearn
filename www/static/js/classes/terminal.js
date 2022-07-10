@@ -1,7 +1,9 @@
-// const { FitAddon } = require("xterm-addon-fit");
-
 class Term {
-    constructor () {
+    constructor (div, user, prompt, demo) {
+        this.parentDiv = div;
+        this.user = user;
+        this.prompt = user.concat(`~${prompt}`)
+        this.isDemo = demo
         this.keyDown = false;
         this.history = [];
         this.currentHistory = -1;
@@ -26,8 +28,7 @@ class Term {
         }
 
         if ( func === "clear" ) {
-            this.terminal.write('\b \b'.repeat(5))
-            this.terminal.clear()
+            this.clear()
             return;
         }
         else if ( func === "echo" ) {
@@ -39,9 +40,15 @@ class Term {
         this.terminal.prompt()
     }
 
+    clear(noPrompt)  {
+        
+        this.terminal.clear()
+        this.terminal.write('\b \b'.repeat(5))
+    }
+
     traverseHistory(direction) {
         let data = ""
-        let blanks = '\b \b'.repeat(this.terminal._core.buffer.x - 6)
+        let blanks = '\b \b'.repeat(this.terminal._core.buffer.x - this.prompt.length - 1)
         if ( direction === "up" ) {
             if ( this.currentHistory >= -1 && this.currentHistory < ( this.history.length - 1 ) )
             this.currentHistory++;
@@ -63,14 +70,19 @@ class Term {
         for (let i=0; i < data.length; i++) {this.currentLine.push(data.charAt(i))}
     }
 
-    startTerm(div, user, prompt) {
-        this.parentDiv = document.getElementById(div);
+
+    // pass through Terminal div object
+    startTerm() {
         this.terminal.open(this.parentDiv);
+        this.fit()
         new ResizeObserver( () => { this.fit() } ).observe(this.parentDiv)
         this.terminal.prompt = () => {
-            this.terminal.write('\r\n' + user + prompt + ' ')
+            this.terminal.write('\r\n' + this.prompt + ' ')
         };
-        this.terminal.write(user + prompt + ' ');
+        if (this.isDemo) {
+            this.terminal.write('Welcome to the JSLearn terminal demo!\r\nTheres only a limited number of options in the demo\r\nTry some of the following:\r\n   echo clear\r\n')
+        }
+        this.terminal.write(this.prompt + ' ');
         this.terminal.setOption('cursorBlink', true);
         this.theme = {
             background: '#0000',
@@ -113,3 +125,5 @@ class Term {
         })
     }
 }
+
+// TODO: websocket for output and input https://cheatcode.co/tutorials/how-to-set-up-a-websocket-server-with-node-js-and-express

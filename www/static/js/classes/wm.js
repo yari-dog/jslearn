@@ -158,8 +158,15 @@ class WindowManager {
     }
 
     createRow(column, view){
+        var mainRow = false;
+        if (column === this.columns[0]) {
+            if (column.rows.length == 0 ) {
+                mainRow = true;
+            }
+        }
         if (!view) { var view = '/' }
         let row = {
+            isMain: mainRow,
             attributes: {
                 class: 'row',
                 id: `${column.container.id}row${column.rows.length}`,
@@ -188,7 +195,16 @@ class WindowManager {
         row.box.object.addEventListener("mouseover", e => { this.selectView(e)});
         row.box.object.addEventListener("mouseout", e => { this.deselectView(e) });
         row.topBar = this.newContainer(document.getElementById(row.box.id),this.topBar);
-        row.view = this.newContainer(document.getElementById(row.box.id),row.viewAttributes,true)
+        if (mainRow){
+            row.view = this.newContainer(document.getElementById(row.box.id),row.viewAttributes)
+            if (view) {
+                this.loadView(row.view.object, view);
+            } else {
+                this.loadView(row.view.object, "/")
+            }
+        } else {
+            row.view = this.newContainer(document.getElementById(row.box.id),row.viewAttributes,true)
+        }
         column.rows.push(row);
         return row;
     }
@@ -240,6 +256,47 @@ class WindowManager {
             box.style.outline = "0px solid pink"
         }
     };
+
+    async loadView(view,viewLink){
+        console.log(viewLink)
+        let data = await this.fetchAsync(viewLink);
+        view.innerHTML = data;
+        const column = view.parentNode.parentNode.parentNode
+        if (column.classList.contains("main")){
+            const historyPath = viewLink.split("/").slice(2)
+            console.log('pushing state', historyPath)
+            history.pushState(null,null,historyPath)
+        }
+        this.setTitle(view,viewLink)
+        this.executeScriptElements(view)
+    }
+
+    async fetchAsync(url){
+        let response = await fetch(url);
+        if (response.status == 404){
+            response = await this.fetchAsync('/views/404');
+            return response
+        }
+        let data = await response.text();
+        return(data)
+    }
+
+    executeScriptElements(containerElement) {
+        const scriptElements = containerElement.querySelectorAll("script");
+      
+        Array.from(scriptElements).forEach((scriptElement) => {
+          const clonedElement = document.createElement("script");
+      
+          Array.from(scriptElement.attributes).forEach((attribute) => {
+            clonedElement.setAttribute(attribute.name, attribute.value);
+          });
+          
+          clonedElement.text = scriptElement.text;
+      
+          scriptElement.parentNode.replaceChild(clonedElement, scriptElement);
+        });
+    };
+
     newContainer(parent, attributes, isFrame){
         if ( typeof attributes.id === "undefined" ) {
             attributes.id =  `div${this.containers.length}`;

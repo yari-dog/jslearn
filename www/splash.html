@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/static/css/splash.css">
-        <link rel="stylesheet" href="/static/css/nav2.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/nav.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="wrapper" style="justify-content: center; height: fit-content; margin-left: 15px; margin-right: 15px;">
-                    <div class="container hover no-mobile-hover mini no-shadow" style="z-index: 999;">
+                    <div class="container hover no-mobile-hover mini no-shadow" style="z-index: 999; cursor: pointer;" onclick="location.href = '/'">
                         <h1>
                             JSLearn
                         </h1>
@@ -34,7 +34,7 @@
             <!-- #region nav -->
             <div class="nav-overlay" style="position: fixed; top: var(--header-height); left: 0;"></div>
             <div class="nav-panel" style="position: fixed; top: var(--header-height); left: 0;">
-                <nav class="container nav">
+                <nav class="container nav" style="box-shadow: none;">
                     <div class="nav-link selection"><a href="/view/test" data-link>Nav Item 1</a></div>
                     <div class="nav-link selection"><a href="/view/test" data-link>Nav Item 2</a></div>
                     <div class="nav-link selection"><a href="/view/test" data-link>Nav Item 3</a></div>
@@ -74,7 +74,7 @@
                     <div class="flex">
                         <div class="container flex flex-grow">
                             <div class="container no-shadow always-hover flex flex-grow">
-                                <h1>The home for modern day development education.</h1>
+                                <iframe src="/views/terminal?user=demo" class="terminal-demo"></iframe>
                             </div>
                         </div>
                     </div>

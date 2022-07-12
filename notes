@@ -9,4 +9,10 @@ window manager to manage windows
 issue with history function of terminal, logic problem with selecting current item in history list
 issue with method instantiation in Term class, was not creating method correctly
 
+refactoring the loading view from window manager class to seperate view class, view class will handle the view events from within itself, and will handle the loading and history states of the page.
 
+differentiated www endpoint from api endpoint, to make backend more navigable
+
+logic for jwt generation should be within User model
+
+authn middleware checks if valid jws is a refresh or access token by its contents and will pragmatically define a property in the request body for refreshToken if its refresh or accessToken if its access, avoiding possible catastrophic logic errors allowing valid access tokens to be used in place of refresh tokens

@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "jslearn_jwtPrivateKey",
+    "env": "jslearn_env"
+}

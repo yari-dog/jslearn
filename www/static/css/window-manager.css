@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+.root {
+    height: 100vh;
+    width: 100vw;
+}
+
+.column {
+    height: 100%;
+}
+
+.row {
+    width: 100%;
+}
+
+.window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--black);
+}
+
+.window.selected {
+    border: 1px solid var(--primary);
+}
+
+.window.main .view{
+    background: var(--light-grey);
+}
+
+.cont {
+    float: left;
+}
+
+.bar {
+    height: 20px;
+    width: 100%;
+    background-color: var(--black);
+}
+
+.view {
+    height: 100%;
+    width: 100%;
+    background-color: var(--white);
+    overflow: scroll;
+}
+
+.iframe {
+    height:100%;
+    width: 100%;
+    border: none;
+}

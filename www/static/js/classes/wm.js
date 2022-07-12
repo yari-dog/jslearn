@@ -1,4 +1,11 @@
 class Container {
+
+    /**
+     * 
+     * @param {object} parent the object of the parent
+     * @param {object} attributes the attributes of the container
+     * @param {boolean} isFrame is the container to be an iframe?
+     */
     constructor(parent, attributes, isFrame) {
         this.attributes = attributes;
         this.parent = parent;
@@ -255,46 +262,6 @@ class WindowManager {
         if (box) {
             box.style.outline = "0px solid pink"
         }
-    };
-
-    async loadView(view,viewLink){
-        console.log(viewLink)
-        let data = await this.fetchAsync(viewLink);
-        view.innerHTML = data;
-        const column = view.parentNode.parentNode.parentNode
-        if (column.classList.contains("main")){
-            const historyPath = viewLink.split("/").slice(2)
-            console.log('pushing state', historyPath)
-            history.pushState(null,null,historyPath)
-        }
-        this.setTitle(view,viewLink)
-        this.executeScriptElements(view)
-    }
-
-    async fetchAsync(url){
-        let response = await fetch(url);
-        if (response.status == 404){
-            response = await this.fetchAsync('/views/404');
-            return response
-        }
-        let data = await response.text();
-        return(data)
-    }
-
-    executeScriptElements(containerElement) {
-        const scriptElements = containerElement.querySelectorAll("script");
-      
-        Array.from(scriptElements).forEach((scriptElement) => {
-          const clonedElement = document.createElement("script");
-      
-          Array.from(scriptElement.attributes).forEach((attribute) => {
-            clonedElement.setAttribute(attribute.name, attribute.value);
-          });
-          
-          clonedElement.text = scriptElement.text;
-      
-          scriptElement.parentNode.replaceChild(clonedElement, scriptElement);
-        });
     };
 
     newContainer(parent, attributes, isFrame){

@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "test",
+    "env": "testing"
+}

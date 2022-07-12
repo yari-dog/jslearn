@@ -1,7 +1,7 @@
 
 
 const windowManager = new WindowManager();
-const user = new User('test');
+// const user = new User('test');
 
 windowManager.subColumn.children[0].children[0].view.load('/views/terminal?user=demo')
 windowManager.subColumn.children[1].children[0].view.load(`/views/terminal?user=${user.uid}`)

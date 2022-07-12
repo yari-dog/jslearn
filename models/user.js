@@ -80,10 +80,11 @@ userSchema.methods.validateToken = async function(token) {
 }
 
 userSchema.methods.genNewTokens = async function(ip,refresh) {
+    var user
     if (refresh) {
         this.invalidateToken(refresh._id);
-        var user = await this.save();
-    } else { var user = this }
+        user = await this.save();
+    } else { user = this }
     var {refreshToken, user} = await user.generateRefreshToken(ip);
     const accessToken = await user.generateAccessToken(refreshToken);
     return {refreshToken, accessToken, user};

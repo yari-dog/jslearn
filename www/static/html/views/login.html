@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="/static/css/login.css">
+        <script src="/static/js/classes/User.js"></script>
+        <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1">
+        <!-- <script src="/static/js/classes/wm.js"></script> -->
+    </head>
+    <body>
+        <div>
+            <div class="container" style="width: 400px; max-width: 80vw;">
+                <div class="container no-shadow hover login max">
+                    <!-- #region login-->
+
+                    <form class="form" id="login">
+                        <h1>Login</h1>
+                        <div class="form message error hidden"></div>
+                        <div class="form input-group">
+                            <input name="user" type="text" class="form input grow" autofocus placeholder="Username or email">
+                            <div class="form input error message hidden" id="login-username-error"></div>
+                        </div>
+                        <div class="form input-group">
+                            <input name="password" type="password" class="form input grow" autofocus placeholder="Password">
+                            <div class="form input error message hidden" id="login-password-error"></div>
+                        </div>
+                        <p class="form link grow" id="linkPasswordReset">
+                            <a class="form link grow">Forgot your password?</a>
+                        </p>
+                        <button class="form button grow" type="submit">Continue</button>
+                        <p class="form text grow" id="linkCreateAccount" >
+                            Dont have an account? <a class="form link">Create one.</a>
+                        </p>
+                    </form>
+                    <!-- #endregion -->
+                    <!--  #region signup-->
+                    <form class="form hidden" id="signup">
+                        <h1>Sign Up</h1>
+                        <div class="form message error hidden">test </div>
+                        <div class="form input-group">
+                            <input name="username" type="text" class="form input grow" autofocus placeholder="Username">
+                            <div class="form input error message hidden" id="signup-username-error"></div>
+                        </div>
+                        <div class="form input-group">
+                            <input name="email" type="text" class="form input grow" autofocus placeholder="Email">
+                            <div class="form input error message hidden" id="signup-email-error"></div>
+                        </div>
+                        <div class="form input-group">
+                            <input name="password" type="password" class="form input grow" autofocus placeholder="Password">
+                            <div class="form input error message hidden" id="signup-password-error"></div>
+                        </div>
+                        <div class="form input-group">
+                            <input name="password-resub" type="password" class="form input grow" autofocus placeholder="Repeat Password">
+                            <div class="form input error message hidden" id="signup-repeat-password-error"></div>
+                        </div>
+                        <button class="form button grow" id="signup-button" type="submit">Continue</button>
+                        <p class="form text grow" id="linkLogin">
+                            Have an account? <a class="form link">Log in.</a>
+                        </p>
+                    </form>
+                    <!-- #endregion -->
+                    <!--  #region password reset-->
+                    <form class="form hidden" id="password-reset">
+                        <h1>Reset your password</h1>
+                        <div class="form message error hidden">test </div>
+                        <div class="form input-group">
+                            <input type="text" class="form input grow" autofocus placeholder="Email address">
+                            <div class="form input error message hidden" id="password-reset-error"></div>
+                            <p class="form link grow hidden">
+                                If a user with the entered email address exists, a password reset email has been sent to it
+                            </p>
+                        <button class="form button grow" type="submit">Continue</button>
+                        <p class="form text grow" id="linkLogin">
+                            Remembered your password? <a class="form link">Log in.</a>
+                        </p>
+                    </form>
+                    <!-- #endregion -->
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/views/login.js"></script>
+    </body>
+</html>

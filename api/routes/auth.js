@@ -32,7 +32,8 @@ router.post('/login', async (req, res) => {
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid email or password');
-    var {refreshToken, accessToken, user} = await user.genNewTokens(req.ip);
+    var {refreshToken, accessToken} = await user.genNewTokens(req.ip);
+    user = user.save()
     let date = new Date();
     date.setDate(date.getDate() + 7 )
     date.toUTCString()
@@ -54,7 +55,8 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/refresh', auth(true), async (req, res) => {
-    var {refreshToken, accessToken, user} = await req.body.user.genNewTokens(req.ip, req.body.token);
+    const {refreshToken, accessToken} = await req.body.user.genNewTokens(req.ip, req.body.token);
+    let user = req.body.user.save()
 
     let date = new Date();
     date.setDate(date.getDate() + 7 )
@@ -73,7 +75,7 @@ router.post('/refresh', auth(true), async (req, res) => {
         httpOnly: true,
         expires: date
     })
-    res.send(200)
+    res.sendStatus(200)
 })
 
 router.post('/logout', auth(), async (req, res) => {

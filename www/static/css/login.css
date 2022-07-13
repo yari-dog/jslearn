@@ -74,6 +74,12 @@ body{
     border-color: var(--error);
     color: var(--error);
 }
+.form.message.error p {
+    margin-top: 5px;
+    font-size: 1.3rem;
+    border-color: var(--error);
+    color: var(--error);
+}
 
 .form.input.error.message {
     margin-top: 0.5rem;
@@ -101,7 +107,7 @@ body{
     transform: scale(0.98);
 }
 
-.form.button:hover {
+.form.button:not(disabled)hover {
     background: var(--primary-selected);
     transform: scale(1.02);
 }

@@ -15,4 +15,12 @@ differentiated www endpoint from api endpoint, to make backend more navigable
 
 logic for jwt generation should be within User model
 
-authn middleware checks if valid jws is a refresh or access token by its contents and will pragmatically define a property in the request body for refreshToken if its refresh or accessToken if its access, avoiding possible catastrophic logic errors allowing valid access tokens to be used in place of refresh tokens
+authn middleware checks if valid jws is a refresh or access token by its contents and will pragmatically define a property in the request body for refreshToken if its refresh or accessToken if its access, avoiding possible catastrophic logic errors allowing valid access tokens to be used in place of refresh token
+
+signup notifies if username or email is taken seperately, not the best opsec, but negated by ability to rule out username being taken, so negligable issue
+
+// TODO: fix login closing tab flow? idk how it works, just add query ?shouldclose=true
+// Sign up and password reset flow
+// fix user schema, add settings document and stuff
+// work on user storage
+// fix no user login flow on wm

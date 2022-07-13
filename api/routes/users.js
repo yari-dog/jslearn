@@ -13,8 +13,9 @@ router.post('/', async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     let user = await User.findOne({username: req.body.username});
+    if (user) return res.status(400).send('Username already in use');
     user = await User.findOne({email: req.body.email});
-    if (user) return res.status(400).send('User already exists');
+    if (user) return res.status(400).send('Email already in use');
 
     user = new User({
         username: req.body.username,
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt)
 
-    await user.save()
+    user = await user.save()
     res.send({username: user.username, email: user.email})
 })
 

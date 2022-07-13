@@ -16,7 +16,7 @@
 
                     <form class="form" id="login">
                         <h1>Login</h1>
-                        <div class="form message error hidden"></div>
+                        <div class="form message error hidden" style=""></div>
                         <div class="form input-group">
                             <input name="user" type="text" class="form input grow" autofocus placeholder="Username or email">
                             <div class="form input error message hidden" id="login-username-error"></div>
@@ -47,14 +47,14 @@
                             <div class="form input error message hidden" id="signup-email-error"></div>
                         </div>
                         <div class="form input-group">
-                            <input name="password" type="password" class="form input grow" autofocus placeholder="Password">
+                            <input name="sign-up-password" type="password" class="form input grow" autofocus placeholder="Password">
                             <div class="form input error message hidden" id="signup-password-error"></div>
                         </div>
                         <div class="form input-group">
-                            <input name="password-resub" type="password" class="form input grow" autofocus placeholder="Repeat Password">
+                            <input name="sign-up-password-resub" type="password" class="form input grow" autofocus placeholder="Repeat Password">
                             <div class="form input error message hidden" id="signup-repeat-password-error"></div>
                         </div>
-                        <button class="form button grow" id="signup-button" type="submit">Continue</button>
+                        <button class="form button grow" disabled id="signup-button" type="submit">Continue</button>
                         <p class="form text grow" id="linkLogin">
                             Have an account? <a class="form link">Log in.</a>
                         </p>

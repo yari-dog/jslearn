@@ -1,10 +1,7 @@
 
 
 class User {
-    constructor(uid) {
-        this.uid = uid;
-        this.settings = this.getSettings();
-        this.isLoggedIn = this.#checkIfLoggedIn()
+    constructor() {
     }
 
     getSettings() {
@@ -16,31 +13,45 @@ class User {
 
     }
 
+    async load(isInWM) {
+        this.isLoggedIn = await this.#checkIfLoggedIn() 
+        if (!this.isLoggedIn) {
+            if (isInWM) return false;
+            const redirect = new URL(window.location.href);
+            window.location.href = `/views/login?flow=login&redir=${redirect.pathname}`
+        } return true;
+    }
+
     async #checkIfLoggedIn() {
-        const meCall = await this.#authrequest('me')
-        if (meCall.status = 401) {
-            const refreshCall = await this.#authrequest('auth/refresh')
-            if (refreshCall.status = 401) {
+        const meCall = await this.#authrequest('me','get')
+        console.log(meCall)
+        if (meCall.status == 401) {
+            console.log('401')
+            const refreshCall = await this.#authrequest('auth/refresh','post')
+            console.log(refreshCall)
+            if (refreshCall.status == 401) {
+                console.log(refreshCall.response)
                 return false;
-            } else if (refreshCall.status = 200) {
+            } else if (refreshCall.status == 200) {
                 return true;
             } else {
-                console.log(refreshCall.status)
+                console.log(refreshCall.response)
                 return(false)
             }
-        } else if (meCall.status = 200) {
+        } else if (meCall.status == 200) {
+            this.username = meCall.response;
             return true;
         } else {
-            console.log(meCall.status)
+            console.log(meCall.response)
             return false;
         }
         
     }
 
-    async #authrequest(path) {
+    async #authrequest(path, type) {
         return new Promise (function (resolve, reject) {
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", `/api/${path}`, true);
+            xhr.open(type, `/api/${path}`, true);
             xhr.onload = function () { 
                 resolve({status: xhr.status, response: xhr.response});
             };

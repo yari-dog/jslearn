@@ -37,9 +37,8 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateRefreshToken = async function(ip) {
     const tokenNumber = this.tokens.push({})
-    const user = await this.save()
-    const refreshToken = jwt.sign({ _id: user.tokens[tokenNumber-1]._id, uid: this._id, ip: ip}, config.get('jwtPrivateKey'));
-    return {refreshToken, user};
+    const refreshToken = jwt.sign({ _id: this.tokens[tokenNumber-1]._id, uid: this._id, ip: ip}, config.get('jwtPrivateKey'));
+    return await refreshToken;
 }
 
 userSchema.methods.generateAccessToken = async function(refreshToken) {
@@ -49,30 +48,21 @@ userSchema.methods.generateAccessToken = async function(refreshToken) {
 }
 
 userSchema.methods.getToken = function(id) {
-    var foundToken = null;
-    var index = null;
-    this.tokens.forEach( (token, i) => {
-        if (token._id == id) {
-            foundToken = token;
-            index = i-1;
-        }
-    })
-    return foundToken;
+    for (const token of this.tokens) {
+        if (token._id.equals(id)) return token;
+    } return false;
 }
 
 userSchema.methods.invalidateToken = async function(id) {
     this.getToken(id).isValid = false
-    return this.save()
 }
 
 userSchema.methods.dropToken = async function(id) {
     this.tokens.pull(this.getToken(id))
-    return this.save();
 }
 
 userSchema.methods.dropAllTokens = async function() {
     this.tokens = []
-    return this.save();
 }
 
 userSchema.methods.validateToken = async function(token) {
@@ -80,14 +70,12 @@ userSchema.methods.validateToken = async function(token) {
 }
 
 userSchema.methods.genNewTokens = async function(ip,refresh) {
-    var user
     if (refresh) {
         this.invalidateToken(refresh._id);
-        user = await this.save();
-    } else { user = this }
-    var {refreshToken, user} = await user.generateRefreshToken(ip);
-    const accessToken = await user.generateAccessToken(refreshToken);
-    return {refreshToken, accessToken, user};
+    }
+    const refreshToken = await this.generateRefreshToken(ip);
+    const accessToken = await this.generateAccessToken(refreshToken);
+    return {refreshToken, accessToken};
 }
 
 

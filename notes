@@ -24,3 +24,4 @@ signup notifies if username or email is taken seperately, not the best opsec, bu
 // fix user schema, add settings document and stuff
 // work on user storage
 // fix no user login flow on wm
+// turn custom checkifloggedin() to use a standard auth() call so that all requests automatically attempt refresh, and call a wm event if failed

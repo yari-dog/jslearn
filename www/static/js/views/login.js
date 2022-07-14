@@ -96,8 +96,8 @@ async function handleForm(form) {
 
 
     } else if (form.id === 'login') {
-        const user = formData.get('user');
-        const field = validateEmail(user) ? "email" : "username";
+        const userField = formData.get('user');
+        const field = validateEmail(userField) ? "email" : "username";
         const data = {
             [field.toString()]: formData.get('user'),
             "password": formData.get('password')

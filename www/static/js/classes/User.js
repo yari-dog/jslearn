@@ -1,5 +1,3 @@
-
-
 class User {
     constructor() {
     }
@@ -33,7 +31,7 @@ class User {
                 console.log(refreshCall.response)
                 return false;
             } else if (refreshCall.status == 200) {
-                return true;
+                return await this.#checkIfLoggedIn();
             } else {
                 console.log(refreshCall.response)
                 return(false)

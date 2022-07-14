@@ -6,8 +6,12 @@ async function startup() {
     windowManager = new WindowManager();
     user = await new User();
     if (await user.load(true)) {
-        windowManager.subColumn.children[0].children[0].view.load('/views/terminal?user=demo')
+        //windowManager.subColumn.children[0].children[0].view.load('/views/terminal?user=demo')
+        windowManager.subColumn.children[0].children[0].view.load(`/`)
         windowManager.subColumn.children[1].children[0].view.load(`/views/terminal?user=${user.username}`)
+    } else {
+        windowManager.mainWindow.view.load('/views/login?flow=login')
+        windowManager.subColumn.children[0].children[0].view.load(`/views/login`)
     }
     
 // const user = new User('test');

@@ -67,6 +67,10 @@ class View extends Container{
         });
     };
 
+    #executeStylesheetElements(containerElement) {
+        const stylesheetElements = containerElement.querySelectorAll("link[rel=stylesheet]")
+    }
+
     /**
      * 
      * @param {string} url 

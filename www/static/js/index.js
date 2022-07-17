@@ -7,7 +7,7 @@ async function startup() {
     user = await new User();
     if (await user.load(true)) {
         //windowManager.subColumn.children[0].children[0].view.load('/views/terminal?user=demo')
-        windowManager.subColumn.children[0].children[0].view.load(`/`)
+        windowManager.mainWindow.view.load(`/views/courses`)
         windowManager.subColumn.children[1].children[0].view.load(`/views/terminal?user=${user.username}`)
     } else {
         windowManager.mainWindow.view.load('/views/login?flow=login')

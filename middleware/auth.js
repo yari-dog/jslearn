@@ -18,7 +18,7 @@ module.exports = function auth(isRefresh) {
         try {
             const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
             // if we are authenticating a refresh token, make sure they didnt send a valid access token
-            if (decoded.isAccess && isRefresh) sendError(cookie,400,'Invalid token, wrong token', res);
+            if (decoded.isAccess && isRefresh) return sendError(cookie,400,'Invalid token, wrong token', res);
             // ensure the ip of client that created token is ip of current client
             if (decoded.ip !== req.ip) return sendError(cookie,401,'Access denied: Token from alternate IP', res);
             const user = await User.findById(decoded.uid)

@@ -18,7 +18,8 @@ class Window extends Container {
         });
         this.title = '';
         this.bar = new Bar(this);
-        this.view = new View(this, this.isMain);
+        if (this.isMain) this.view = new View(this);
+        else this.view = new Frame(this)
     }
 
     selectWindow(){

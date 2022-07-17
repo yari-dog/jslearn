@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/nav.css">
         <link rel="stylesheet" href="/static/css/window-manager.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="/static/js/classes/Container.js"></script>
@@ -10,12 +11,73 @@
         <script src="/static/js/classes/Window.js"></script>
         <script src="/static/js/classes/View.js"></script>
         <script src="/static/js/classes/Bar.js"></script>
+        <script src="/static/js/classes/Frame.js"></script>
         <script src="/static/js/classes/User.js"></script>
         <script src="/static/js/classes/WindowManager.js"></script>
         <meta name="viewport" content="width=device-width, maximum-scale=1,initial-scale=1">
         <!-- <script src="/static/js/classes/wm.js"></script> -->
     </head>
     <body>
+        <header class="header">
+            <div class="wrapper" style="padding: 5px; box-sizing: border-box;">
+                <div class="container no-shadow flex mini" style="max-width: var(--header-height);box-sizing: border-box;">
+                    <button type="button" class="nav-btn">
+                        <span class="material-icons">
+                            menu
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="wrapper" style="justify-content: center; height: fit-content; margin-left: 15px; margin-right: 15px;">
+                <div class="container hover no-mobile-hover mini no-shadow" style="z-index: 999; cursor: pointer;" onclick="location.href = '/views/home'">
+                    <h1>
+                        JSLearn
+                    </h1>
+                </div>
+            </div>
+            <div class="wrapper" style="justify-content: flex-end;">
+                <div class="container no-shadow hover no-mobile-hover mini" style="border-bottom-right-radius: 0px; border-top-right-radius: 0px;">
+                    <a href="/home">go to client area</a>
+                </div>
+            </div>
+        </header>
+        <!-- #region nav -->
+        <div class="nav-overlay"></div>
+        <div class="nav-panel">
+            <nav class="container nav">
+                <div class="nav-link selection"><a href="/views/courses" data-link>Courses</a></div>
+                <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 2</a></div>
+                <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 3</a></div>
+                <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 4</a></div>
+                <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 5</a></div>
+            </nav>
+        </div>
+        <script>
+            // setup navigation bar
+            {
+                const navMenu = document.querySelector('.nav-panel');
+                const navOverlay = document.querySelector('.nav-overlay');
+                const navButton = document.querySelector('.nav-btn');
+    
+                navButton.addEventListener("click", () => {
+                    if (navMenu.classList.contains("nav-open")){
+                        navMenu.classList.remove("nav-open");
+                        navOverlay.classList.remove("nav-overlay-open");
+                        navButton.parentNode.classList.remove("always-hover");
+                    } else {
+                        navMenu.classList.add("nav-open");
+                        navOverlay.classList.add("nav-overlay-open");
+                        navButton.parentNode.classList.add("always-hover");
+                    }
+                });
+    
+                navOverlay.addEventListener("click", () => {
+                    navMenu.classList.remove("nav-open");
+                    navOverlay.classList.remove("nav-overlay-open");
+                    navButton.parentNode.classList.remove("always-hover");
+                });
+            }
+        </script>
         <script src="/static/js/index.js"></script>
     </body>
 </html>

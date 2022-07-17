@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const config = require('config');
 const auth = require('../../middleware/auth')
+const authz = require('../../middleware/authz')
 const router = express.Router();
 
 router.get('/', auth(), (req, res) => {
@@ -53,6 +54,10 @@ router.post('/login', async (req, res) => {
     })
     res.sendStatus(200)
 })
+
+router.get('/authz', auth(), authz({required: ['admin','teacher']}), async (req, res) => {
+    res.sendStatus(200)
+});
 
 router.post('/refresh', auth(true), async (req, res) => {
     const {refreshToken, accessToken} = await req.body.user.genNewTokens(req.ip, req.body.token);

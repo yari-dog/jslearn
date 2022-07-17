@@ -38,9 +38,9 @@ class WindowManager {
         else {
             this.mainWindow.load(currentLocation.replace('/home','/views'), false)
         }
-        this.subColumn = new Column(this.root);
-        new Window(new Row(this.subColumn))
-        new Window(new Row(this.subColumn))
+        // this.subColumn = new Column(this.root);
+        // new Window(new Row(this.subColumn))
+        // new Window(new Row(this.subColumn))
     }
 };
 

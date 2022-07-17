@@ -19,21 +19,22 @@
 }
 
 .nav-panel {
-    --nav-width: 40vw;
+    --nav-width: 40%;
 
-    position: sticky;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
     align-content: flex-start;
-    top: 0px;
+    top: var(--header-height);
     left: 0px;
     width: var(--nav-width);
     height: 100%;
     background: none;
     overflow-y: scroll;
-    transform: translateX(calc(-1 * var(--nav-width)));
+    z-index: 10;
+    transform: translateX(-100%);
     transition: transform 0.25s ease;
 }
 
@@ -84,11 +85,12 @@
 
 .nav-overlay {
     display: none;
-    position: absolute;
-    top: 0px;
+    position: fixed;
+    top: var(--header-height);
     left: 0px;
     height: 100%;
     width: 100%;
+    z-index: 9;
     background-color: rgba(0,0,0,0.1)
 }
 
@@ -108,7 +110,7 @@
  /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .nav-panel{
-        --nav-width: 100vw;
+        --nav-width: 100%;
     }
 
 }
@@ -116,7 +118,7 @@
  /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .nav-panel{
-        --nav-width: 60vw;
+        --nav-width: 60%;
     }
 }
  

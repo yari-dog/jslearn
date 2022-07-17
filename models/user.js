@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const Joi = require('joi')
 const config = require('config')
 const mongoose = require('mongoose')
-const { token } = require('morgan')
 
 const tokenSchema = new mongoose.Schema({
     isValid: {
@@ -32,7 +31,14 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 1024
     },
-    tokens: [tokenSchema]
+    tags: [[String]],
+    tokens: [tokenSchema],
+    courses: [{
+        _id:{type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
+        completed: [{
+            _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Course'}
+        }]
+    }]
 })
 
 userSchema.methods.generateRefreshToken = async function(ip) {
@@ -67,6 +73,26 @@ userSchema.methods.dropAllTokens = async function() {
 
 userSchema.methods.validateToken = async function(token) {
     
+}
+
+userSchema.methods.enrollCourse = function (course) {
+    this.courses.push(course)
+}
+
+userSchema.methods.completeLesson = function (courseID, lessonID) {
+    //this.courses.find({_id: course}).push(lesson)
+    for (const course of this.courses) {
+        if (course._id.toString() ===  courseID) {
+            for (const lesson of course.completed){
+                if (lesson._id.toString() == lessonID) {
+                    return 'already completed';
+                }
+            }
+            course.completed.push(lessonID);
+            return;
+        }
+    }
+    return 'could not find course in user';
 }
 
 userSchema.methods.genNewTokens = async function(ip,refresh) {

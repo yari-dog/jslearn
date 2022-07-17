@@ -5,29 +5,22 @@ class View extends Container{
      * @param {object} parent Object for view
      * 
      */
-    constructor(parent,isMain) {
+    constructor(parent) {
         super(parent, {class: 'view'});
-        this.isMain = isMain;
-        if (this.isMain) {
-            this.container.addEventListener('click',  e => {
-                if (e.target.matches('[data-link]')) {
-                    e.preventDefault();
-                    this.load(e.target.href,true);
-                }
-            })
-            window.addEventListener('popstate', () => {
-                if (location.pathname === '/home') {
-                    location.reload();
-                }
-                else {
-                    this.load(location.pathname.replace('/home','/views'),false)
-                }
-            })
-        } else {
-            this.iframe = document.createElement('iframe');
-            this.iframe.classList.add('iframe');
-            this.container.appendChild(this.iframe);
-        }
+        this.container.addEventListener('click',  e => {
+            if (e.target.matches('[data-link]')) {
+                e.preventDefault();
+                this.load(e.target.href,true);
+            }
+        })
+        window.addEventListener('popstate', () => {
+            if (location.pathname === '/home') {
+                location.reload();
+            }
+            else {
+                this.load(location.pathname.replace('/home','/views'),false)
+            }
+        })
     };
 
     /**
@@ -36,19 +29,12 @@ class View extends Container{
      * 
      */
     load(url, shouldRedirect) {
-        if (this.isMain) {
-            shouldRedirect = shouldRedirect ? true : false;
-            if (shouldRedirect) {
-                windowManager.pushState(url.replace('/views','/home')); console.log('pushing state');
-            };
-            this.parent.setTitle(url);
-            this.#loadView(url);
-        }
-
-        // TODO fix this
-        else {
-            this.iframe.src = url
-        }
+        shouldRedirect = shouldRedirect ? true : false;
+        if (shouldRedirect) {
+            windowManager.pushState(url.replace('/views','/home')); console.log('pushing state');
+        };
+        this.parent.setTitle(url);
+        this.#loadView(url);
     }
 
     #executeScriptElements(containerElement) {
@@ -66,10 +52,6 @@ class View extends Container{
           scriptElement.parentNode.replaceChild(clonedElement, scriptElement);
         });
     };
-
-    #executeStylesheetElements(containerElement) {
-        const stylesheetElements = containerElement.querySelectorAll("link[rel=stylesheet]")
-    }
 
     /**
      * 

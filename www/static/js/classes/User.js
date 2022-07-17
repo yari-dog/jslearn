@@ -56,4 +56,14 @@ class User {
             xhr.send();
         });
     }
+
+    async makeAuthCall(path, type) {
+        let result = await this.#authrequest(path, type);
+        if (result.status == 401) {
+            result = await this.#authrequest('auth/refresh','post');
+            if (result.status != 200) {console.log(result); return false};
+            result = await this.#authrequest(path, type);
+        }
+        return result;
+    }
 }

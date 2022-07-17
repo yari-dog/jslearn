@@ -17,7 +17,10 @@ class User {
             if (isInWM) return false;
             const redirect = new URL(window.location.href);
             window.location.href = `/views/login?flow=login&redir=${redirect.pathname}`
-        } return true;
+        } 
+        document.getElementById('user-button').innerHTML = this.username;
+        document.getElementById('profile-picture').src = this.profilePicture;
+        return true;
     }
 
     async #checkIfLoggedIn() {
@@ -37,7 +40,9 @@ class User {
                 return(false)
             }
         } else if (meCall.status == 200) {
-            this.username = meCall.response;
+            const response = JSON.parse(meCall.response)
+            this.username = response.username;
+            this.profilePicture = response.profilePicture;
             return true;
         } else {
             console.log(meCall.response)

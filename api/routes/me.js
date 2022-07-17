@@ -10,7 +10,11 @@ router.post('/', auth(), (req, res) => {
 })
 
 router.get('/', auth(), (req, res) => {
-    res.send(req.body.user.username)
+    response = {
+        username: req.body.user.username,
+        profilePicture: req.body.user.profilePicture
+    }
+    res.send(JSON.stringify(response))
 })
 
 router.get('/courses', auth(), async (req, res) => {

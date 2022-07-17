@@ -26,7 +26,6 @@ async function outputCurrentCourses() {
         if (card.children[0]) card.children[0].remove();
         const progress = await getCourseProgress(courses[i]._id._id)
         const title = document.createElement('h1');
-        console.log(courses[i])
         card.id = (courses[i]._id._id.toString());
         title.innerHTML = courses[i]._id.name
         card.appendChild(title)
@@ -50,7 +49,13 @@ async function outputCurrentCourses() {
         progressBar.appendChild(textIndicator)
         progressBar.appendChild(progressIndicator)
         progressDiv.appendChild(progressBar)
+        card.setAttribute('data-link','')
+        card.style.cursor = 'pointer'
         card.appendChild(progressDiv)
+        card.addEventListener('click', (e) => {
+            windowManager.mainWindow.load( `/views/courses/${courses[i]._id._id}`,true)
+        })
+        
 
         if (i != courses.length - 1) {
             if (!card.nextElementSibling) {

@@ -29,11 +29,13 @@ const home = require('./routes/home')
 const index = require('./routes/index')
 const views = require('./routes/views')
 const api = require('./routes/api')
+const files = require('./routes/files')
 
 
 // #endregion
 
 app.use("/api", api)
+app.use("/files", files)
 app.use("/home", home)
 app.use("/views", views)
 app.use("/node_modules", express.static(path.resolve(__dirname, "node_modules")))

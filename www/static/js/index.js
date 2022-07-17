@@ -3,15 +3,13 @@
 
 
 async function startup() {
+    console.log('starting up')
     windowManager = new WindowManager();
-    user = await new User();
-    if (await user.load(true)) {
-        //windowManager.subColumn.children[0].children[0].view.load('/views/terminal?user=demo')
-        windowManager.mainWindow.view.load(`/views/courses`)
-        windowManager.subColumn.children[1].children[0].view.load(`/views/terminal?user=${user.username}`)
+    user = new User();
+    if (!await user.load(true)) {
+        windowManager.mainWindow.load('/views/login')
     } else {
-        windowManager.mainWindow.view.load('/views/login?flow=login')
-        windowManager.subColumn.children[0].children[0].view.load(`/views/login`)
+        windowManager.mainWindow.load(location.pathname)
     }
     
 // const user = new User('test');

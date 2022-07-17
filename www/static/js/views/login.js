@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    start();
+    // #endregion
+})
+start();
+function start() {
     const loginForm = document.querySelector('#login');
     const signupForm = document.querySelector('#signup');
     const passwordResetForm = document.querySelector('#password-reset');
@@ -63,8 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signupForm.classList.add('hidden')
         })
     }
-    // #endregion
-})
+}
 
 function findButton(form) {
     for (const i of form.elements) {
@@ -86,8 +90,6 @@ async function handleForm(form) {
         }
         const result = await sendData(data, '/api/users')
         if (result.status == 200){
-            clearFormError(form)
-            window.close()
             window.location.href = '/views/postsignup'
         } 
         else if (result.response === "Username already in use") showError(form.username.nextElementSibling, result.response)
@@ -104,14 +106,11 @@ async function handleForm(form) {
         }
         const result = await sendData(data, '/api/auth/login')
         if (result.status == 200){
-            if (windowManager) closeWMWindow()
-            else {
-                clearFormError(form)
-                window.close()
-                window.location.href = redirect ? redirect : '/home'
-            }
+            user.load(true)
+            if (windowManager) windowManager.mainWindow.load('/home')
+            else window.location.href = redirect ? redirect : '/views/courses'
         }
-        else console.log(result), setFormError(form, 'Incorrect username or password')
+        else console.log(result), setFormError(form, result.response)
 
     } else if (form.id === 'password-reset') {
 
@@ -139,10 +138,6 @@ function validateEmail(mail) {
       return (true)
     }
       return (false)
-}
-
-function closeWMWindow() {
-    const event = new Event('wm-close')
 }
 
 function validateUsername(username) {

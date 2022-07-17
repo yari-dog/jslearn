@@ -37,6 +37,7 @@ const courseSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    description: String,
     lessons: [lessonSchema],
     tags: [[String]]
 })

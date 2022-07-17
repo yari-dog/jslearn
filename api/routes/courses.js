@@ -60,7 +60,7 @@ router.get('/', auth(), async (req, res) => {
 
 router.get('/:id', auth(), async (req, res) => {
     let query = Course.findById(req.params.id);
-    query.populate({path:'creator',select:'username'}).select('name creator lessons.name lessons._id');
+    query.populate({path:'creator',select:'username'}).select('name creator description tags lessons.name lessons._id');
     let course = await query.exec();
     if (!course) return res.sendStatus(404);
     res.send(course)

@@ -10,9 +10,15 @@ router.get('/login', async (req, res) => {
     res.sendFile(path.resolve(__dirname, '..','www','static','html','views','login.html'));
 })
 
+router.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..','www','static','html','views','view.html'))
+})
+
 router.get('/:view', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..','www','static','html','views',req.params.view.concat('.html')));
 })
 
-
+router.get('/courses/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..','www','static','html','views','course.html'))
+})
 module.exports = router;

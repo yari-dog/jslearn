@@ -29,15 +29,16 @@
                 </div>
             </div>
             <div class="wrapper" style="justify-content: center; height: fit-content; margin-left: 15px; margin-right: 15px;">
-                <div class="container hover no-mobile-hover mini no-shadow" style="z-index: 999; cursor: pointer;" onclick="location.href = '/views/home'">
+                <div class="container hover no-mobile-hover mini no-shadow" style="z-index: 999; cursor: pointer;" data-link onclick="location.href = '/views/home'">
                     <h1>
                         JSLearn
                     </h1>
                 </div>
             </div>
             <div class="wrapper" style="justify-content: flex-end;">
-                <div class="container no-shadow hover no-mobile-hover mini" style="border-bottom-right-radius: 0px; border-top-right-radius: 0px;">
-                    <a href="/home">go to client area</a>
+                <div class="container no-shadow hover no-mobile-hover mini flex" style="border-bottom-right-radius: 0px; border-top-right-radius: 0px; gap: 5px">
+                    <img id="profile-picture" src="">
+                    <a id="user-button" href="/views/me" data-link></a>
                 </div>
             </div>
         </header>
@@ -46,7 +47,7 @@
         <div class="nav-panel">
             <nav class="container nav">
                 <div class="nav-link selection"><a href="/views/courses" data-link>Courses</a></div>
-                <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 2</a></div>
+                <div class="nav-link selection"><a href="/views/login" data-link>Login</a></div>
                 <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 3</a></div>
                 <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 4</a></div>
                 <div class="nav-link selection"><a href="/views/test" data-link>Nav Item 5</a></div>

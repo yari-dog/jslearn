@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const Joi = require('joi')
 const config = require('config')
 const mongoose = require('mongoose')
+const { string } = require('joi')
 
 const tokenSchema = new mongoose.Schema({
     isValid: {
@@ -33,6 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     tags: [[String]],
     tokens: [tokenSchema],
+    profilePicture: String,
     courses: [{
         _id:{type: mongoose.Schema.Types.ObjectId, ref: 'Course'},
         completed: [{

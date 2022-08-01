@@ -6,11 +6,11 @@ const resources = {User, Course}
 
 module.exports = function auth(tags, resource) {
     return async function(req, res, next) {
-        /*
+        
         if (req.body.user.tags.includes('admin')) {
             console.log('admin account');
              next();
-        } else {*/
+        } else {
         if (tags.blacklist) {
             for (const tag of tags.blacklist) {
                 for (const userTag of req.body.user.tags){
@@ -36,7 +36,7 @@ module.exports = function auth(tags, resource) {
             if (!creator === req.body.user._id) return sendError(403, 'Unauthorised, not creator of resource')
         }
         next();
-    }//}
+    }}
 }
 
 function sendError(status, error, res) {

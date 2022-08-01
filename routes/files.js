@@ -4,8 +4,9 @@ const auth = require('../middleware/auth')
 const authz = require('../middleware/authz')
 const router = express.Router();
 
-router.get('/public/:id/:path', auth(), (req, res) => {
-    res.sendFile(path.resolve(__dirname,'..','www','userStorage','public',req.params.id,req.params.path))
+
+router.get('/*', auth(), (req, res) => {
+    res.sendFile(path.join(__dirname,'..','www','userStorage',req.path))
 })
 
 module.exports = router;

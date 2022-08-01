@@ -6,7 +6,7 @@ class View extends Container{
      * 
      */
     constructor(parent) {
-        super(parent, {class: 'view'});
+        super(parent, {classes: ['view']});
         window.addEventListener('click',  e => {
             if (e.target.matches('[data-link]')) {
                 e.preventDefault();

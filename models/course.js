@@ -39,7 +39,7 @@ const courseSchema = new mongoose.Schema({
     },
     description: String,
     lessons: [lessonSchema],
-    tags: [[String]]
+    tags: [String]
 })
 
 courseSchema.methods.addLesson = function(lesson) {

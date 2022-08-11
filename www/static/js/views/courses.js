@@ -69,3 +69,5 @@ async function outputCurrentCourses() {
 }
 
 outputCurrentCourses()
+
+windowManager.setLayout()

@@ -18,37 +18,22 @@ class User {
             const redirect = new URL(window.location.href);
             window.location.href = `/views/login?flow=login&redir=${redirect.pathname}`
         } 
-        document.getElementById('user-button').innerHTML = this.username;
-        document.getElementById('profile-picture').src = this.profilePicture;
+        await this.#getUserData()
+        document.getElementById('user-button').innerHTML = this.userData.username;
+        document.getElementById('profile-picture').src = this.userData.profilePicture;
         return true;
     }
 
+    async #getUserData() {
+        const result = await this.makeAuthCall('me','get')
+        if (result.status != 200) return false;
+        this.userData = JSON.parse(result.response)
+    }
+
     async #checkIfLoggedIn() {
-        const meCall = await this.#authrequest('me','get')
-        console.log(meCall)
-        if (meCall.status == 401) {
-            console.log('401')
-            const refreshCall = await this.#authrequest('auth/refresh','post')
-            console.log(refreshCall)
-            if (refreshCall.status == 401) {
-                console.log(refreshCall.response)
-                return false;
-            } else if (refreshCall.status == 200) {
-                return await this.#checkIfLoggedIn();
-            } else {
-                console.log(refreshCall.response)
-                return(false)
-            }
-        } else if (meCall.status == 200) {
-            const response = JSON.parse(meCall.response)
-            this.username = response.username;
-            this.profilePicture = response.profilePicture;
-            return true;
-        } else {
-            console.log(meCall.response)
-            return false;
-        }
-        
+        const result = await this.makeAuthCall('me','get')
+        if (result.status == 200) return true;
+        else return false;
     }
 
     async #authrequest(path, type) {

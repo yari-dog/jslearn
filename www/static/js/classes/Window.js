@@ -4,8 +4,8 @@ class Window extends Container {
      * @param {object} parent parent object
      * @param {boolean} isMain is this the main window?
      */
-    constructor(parent, isMain) {
-        super(parent, {class: 'window'})
+    constructor(parent, isMain, id) {
+        super(parent, {classes: ['window']})
         this.isMain = isMain ? true : false;
         if (this.isMain) {
             this.container.classList.add('main')
@@ -19,7 +19,7 @@ class Window extends Container {
         this.title = '';
         this.bar = new Bar(this);
         if (this.isMain) this.view = new View(this);
-        else this.view = new Frame(this)
+        else this.view = new Frame(this, id)
     }
 
     selectWindow(){
@@ -44,6 +44,7 @@ class Window extends Container {
      */
     setTitle(title) {
         this.title = title;
+        this.bar.setTitle(title);
     }
 
     close() {

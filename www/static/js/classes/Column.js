@@ -7,4 +7,9 @@ class Column extends Container {
             }
         }
     }
+
+    autoResize(n) {
+        console.log(100/n)
+        this.resize(null,`${100/n}%`)
+    }
 }

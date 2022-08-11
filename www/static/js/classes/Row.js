@@ -7,4 +7,8 @@ class Row extends Container {
             }
         }
     }
+
+    autoResize(n) {
+        this.resize(`${100/n}%`,null)
+    }
 }
